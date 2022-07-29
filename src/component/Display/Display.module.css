@@ -1,0 +1,15 @@
+.display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    background-color: #4bc2f5;
+    font-size: 34px;
+    font-weight: 700;
+    border-radius: 7px;
+    padding: 24px 0;
+}
+.stop{
+    color: red;
+    font-size: 38px;
+}

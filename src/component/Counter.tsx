@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import Input from "./Input/Input";
-import ButtonInc from "./Button/ButtonInc";
-import ButtonReset from "./Button/ResetButton";
+import Display from "./Display/Display";
 import style from './Counter.module.css'
+import Button from "./Button/Button";
+
 const Counter = () => {
-    let [value, setValue] = useState(0)
-    let [endValue, setEndValue] = useState(5)
+    let minValue = 0
+    let maxValue = 5
+    let [value, setValue] = useState(minValue)
+    let [endValue, setEndValue] = useState(maxValue)
 
     const AddCount = () => {
         setValue(value + 1)
@@ -13,20 +15,14 @@ const Counter = () => {
     const onReset = () => {
         setValue(0)
     }
+    let visInc = value < endValue
+    let visRes = value === minValue
     return (
         <div className={style.counter}>
-            <Input value={value} endValue={endValue}/>
+            <Display value={value} endValue={endValue}/>
             <div className={style.block_button}>
-                <ButtonInc
-                    value={value}
-                    endValue={endValue}
-                    title={'inc'}
-                    callBack={AddCount}
-                />
-                <ButtonReset
-                    value={value}
-                    title={'reset'}
-                    callBack={onReset}/>
+                <Button title={'inc'} onClick={AddCount} visibility={!visInc}/>
+                <Button title={'reset'} onClick={onReset} visibility={visRes}/>
             </div>
         </div>
     );
