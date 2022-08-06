@@ -1,0 +1,14 @@
+.title_Values {
+    display: flex;
+    justify-content: space-between;
+    color: #4bc2f5;
+    font-size: 30px;
+    font-weight: 700;
+    min-width: 350px;
+    padding: 10px 0;
+}
+
+.title_Values input {
+    max-width: 200px;
+    border-radius: 5px;
+}
