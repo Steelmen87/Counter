@@ -1,6 +1,10 @@
 .App {
-    text-align: center;
     display: flex;
-    font-family: Roboto;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: Roboto, serif;
 }
 
+body {
+    background-color: black;
+}
