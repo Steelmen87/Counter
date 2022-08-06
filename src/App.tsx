@@ -4,22 +4,34 @@ import Counter from "./component/Counter";
 import Setting from "./component/Setting/Setting";
 
 function App() {
-    let [minValue, setMinValue] = useState(0)
     let maxValue = 5
+    let [minValue, setMinValue] = useState(0)
     let [value, setValue] = useState(minValue)
     let [endValue, setEndValue] = useState(maxValue)
+
+    const AddCount = () => {
+        setValue(value + 1)
+    }
+    const onReset = () => {
+        setValue(minValue)
+    }
+
+    const setButton = (valueStart: number, valueMax: number) => {
+        setMinValue(valueStart)
+        setValue(valueStart)
+        setEndValue(valueMax)
+    }
+
     return (
         <div className="App">
             <Setting
-                setMinValue={setMinValue}
-                setValue={setValue}
-                setEndValue={setEndValue}
+                setButton={setButton}
             />
             <Counter
-                minValue={minValue}
+                AddCount={AddCount}
+                onReset={onReset}
                 value={value}
                 endValue={endValue}
-                setValue={setValue}
             />
         </div>
     );

@@ -1,24 +1,20 @@
 import React, {useState} from 'react';
 import style from "../Counter.module.css";
-import Button from "../Button/Button";
+import {Button} from "../Button/Button";
 import {Input} from "../Input/Input";
 
 
 type PropsSettingType = {
-    setValue: (value: number) => void
-    setEndValue: (value: number) => void
-    setMinValue: (value: number) => void
+    setButton: (valueStart: number, valueMax: number) => void
 }
 const Setting = (props: PropsSettingType) => {
 
-    let {setValue, setEndValue,setMinValue} = props
+    let {setButton} = props
     let [valueMax, setValueMax] = useState(0)
     let [valueStart, setValueStart] = useState(0)
 
-    const setButton = () => {
-        setMinValue(valueStart)
-        setValue(valueStart)
-        setEndValue(valueMax)
+    const onClickSetButton = () => {
+        setButton(valueStart, valueMax)
     }
     return (
         <div className={style.counter}>
@@ -27,7 +23,7 @@ const Setting = (props: PropsSettingType) => {
                 <Input value={valueStart} title={'start value :'} callback={setValueStart}/>
             </div>
             <div className={style.block_button}>
-                <Button title={'set'} onClick={setButton} visibility={false}/>
+                <Button title={'set'} onClick={onClickSetButton} disabled={false}/>
             </div>
         </div>
     );

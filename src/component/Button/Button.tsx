@@ -4,20 +4,19 @@ import style from './Button.module.css'
 type ButtonPropsTitle = {
     title: string
     onClick: () => void
-    visibility: boolean
+    disabled: boolean
 }
-const Button = (props: ButtonPropsTitle) => {
-    const {title, onClick, visibility} = props
+export const Button = (props: ButtonPropsTitle) => {
+    const {title, onClick, disabled} = props
 
     const onClickHandler = () => {
         onClick()
     }
     return <button
         className={style.button}
-        disabled={visibility}
+        disabled={disabled}
         onClick={onClickHandler}>
         {title}
     </button>
 };
 
-export default Button;
