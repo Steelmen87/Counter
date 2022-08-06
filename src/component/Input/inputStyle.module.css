@@ -9,6 +9,9 @@
 }
 
 .title_Values input {
+    text-align: center;
+    font-size: 14px;
     max-width: 200px;
+    border: 2px solid #4bc2f5;
     border-radius: 5px;
 }

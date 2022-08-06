@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Display from "./Display/Display";
 import style from './Counter.module.css'
 import Button from "./Button/Button";
 
-const Counter = () => {
-    let minValue = 0
-    let maxValue = 5
-    let [value, setValue] = useState(minValue)
-    let [endValue, setEndValue] = useState(maxValue)
+type CounterPropsType = {
+    value: number
+    endValue: number
+    setValue: (value: number) => void
+}
 
+const Counter: React.FC<CounterPropsType> = (props) => {
+    let {value, setValue,  endValue} = props
     const AddCount = () => {
         setValue(value + 1)
     }
@@ -16,7 +18,7 @@ const Counter = () => {
         setValue(0)
     }
     let visInc = value < endValue
-    let visRes = value === minValue
+    let visRes = value > endValue && endValue !== value
     return (
         <div className={style.counter}>
             <Display value={value} endValue={endValue}/>
