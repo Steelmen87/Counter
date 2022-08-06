@@ -7,14 +7,16 @@ import {Input} from "../Input/Input";
 type PropsSettingType = {
     setValue: (value: number) => void
     setEndValue: (value: number) => void
+    setMinValue: (value: number) => void
 }
 const Setting = (props: PropsSettingType) => {
 
-    let {setValue, setEndValue} = props
+    let {setValue, setEndValue,setMinValue} = props
     let [valueMax, setValueMax] = useState(0)
     let [valueStart, setValueStart] = useState(0)
 
     const setButton = () => {
+        setMinValue(valueStart)
         setValue(valueStart)
         setEndValue(valueMax)
     }

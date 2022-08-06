@@ -4,18 +4,21 @@ import style from './Counter.module.css'
 import Button from "./Button/Button";
 
 type CounterPropsType = {
+    minValue: number
     value: number
     endValue: number
     setValue: (value: number) => void
 }
 
 const Counter: React.FC<CounterPropsType> = (props) => {
-    let {value, setValue,  endValue} = props
+    let {value, setValue, endValue, minValue} = props
+
     const AddCount = () => {
         setValue(value + 1)
     }
     const onReset = () => {
-        setValue(0)
+        console.log()
+        setValue(minValue)
     }
     let visInc = value < endValue
     let visRes = value > endValue && endValue !== value
