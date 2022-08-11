@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import style from "../Counter.module.css";
 import {Button} from "../Button/Button";
 import {Input} from "../Input/Input";
@@ -6,6 +6,7 @@ import {Input} from "../Input/Input";
 
 type PropsSettingType = {
     setButton: (valueStart: number, valueMax: number) => void
+
 }
 const Setting = (props: PropsSettingType) => {
 
@@ -16,11 +17,21 @@ const Setting = (props: PropsSettingType) => {
     const onClickSetButton = () => {
         setButton(valueStart, valueMax)
     }
+    const setValueMaxCallBack = (value: number) => {
+        setValueMax(value)
+
+
+    }
+    const setValueStartCallBack = (value: number) => {
+        setValueStart(value)
+
+    }
+
     return (
         <div className={style.counter}>
             <div>
-                <Input value={valueMax} title={'max value :'} callback={setValueMax}/>
-                <Input value={valueStart} title={'start value :'} callback={setValueStart}/>
+                <Input   value={valueMax} title={'max value :'} onChange={setValueMaxCallBack}/>
+                <Input   value={valueStart} title={'start value :'} onChange={setValueStartCallBack}/>
             </div>
             <div className={style.block_button}>
                 <Button title={'set'} onClick={onClickSetButton} disabled={false}/>
