@@ -9,12 +9,8 @@ function App() {
     let [minValue, setMinValue] = useState(0)
     let [value, setValue] = useState(minValue)
     let [endValue, setEndValue] = useState(maxValue)
-
     let [error, setError] = useState(false)
-    useEffect(() => {
 
-
-    }, [value, endValue])
 
     const AddCount = () => {
         setValue(value + 1)
@@ -28,14 +24,17 @@ function App() {
         setValue(valueStart)
         setEndValue(valueMax)
     }
-
+    const ErrorCallBack = (errorFromSetting: boolean) => {
+        setError(errorFromSetting)
+    }
     return (
         <div className="App">
             <Setting
-
+                callBackError={ErrorCallBack}
                 setButton={setButton}
             />
             <Counter
+                error={error}
                 AddCount={AddCount}
                 onReset={onReset}
                 value={value}

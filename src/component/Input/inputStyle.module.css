@@ -15,3 +15,6 @@
     border: 2px solid #4bc2f5;
     border-radius: 5px;
 }
+.error{
+    background-color: #ca2a2a;
+}
