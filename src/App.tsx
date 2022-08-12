@@ -5,13 +5,13 @@ import Setting from "./component/Setting/Setting";
 import {restoreState, saveState} from "./toolkit/localStorage";
 
 function App() {
-    let [minValue, setMinValue] = useState(0)
-    let [value, setValue] = useState(minValue)
-    let [endValue, setEndValue] = useState(0)
-    let [error, setError] = useState(false)
+    const [minValue, setMinValue] = useState(0)
+    const [value, setValue] = useState(minValue)
+    const [endValue, setEndValue] = useState(0)
+    const [error, setError] = useState(false)
 
     useEffect(() => {
-        const value = restoreState('counter value', [0,0])
+        const value = restoreState('counter value', [0, 0])
         setMinValue(value[0])
         setValue(value[0])
         setEndValue(value[1])
