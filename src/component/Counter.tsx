@@ -11,11 +11,10 @@ type CounterPropsType = {
     error:boolean
 }
 
-const Counter: React.FC<CounterPropsType> = (props) => {
-    let {value, endValue, AddCount, onReset,error} = props
+const Counter: React.FC<CounterPropsType> = ({value, endValue, AddCount, onReset,error}) => {
+    const visInc = value < endValue
+    const visRes = value > endValue && endValue !== value
 
-    let visInc = value < endValue
-    let visRes = value > endValue && endValue !== value
     return (
         <div className={style.counter}>
             <Display

@@ -5,22 +5,22 @@ import Setting from "./component/Setting/Setting";
 import {restoreState, saveState} from "./toolkit/localStorage";
 
 function App() {
-    //
     let [minValue, setMinValue] = useState(0)
     let [value, setValue] = useState(minValue)
     let [endValue, setEndValue] = useState(0)
     let [error, setError] = useState(false)
+
     useEffect(() => {
-        let value = restoreState('counter value', [0,0])
+        const value = restoreState('counter value', [0,0])
         setMinValue(value[0])
         setValue(value[0])
         setEndValue(value[1])
-
     }, [])
 
-    const AddCount = () => {
+    const AddCount = () => { //increment
         setValue(value + 1)
     }
+
     const onReset = () => {
         setValue(minValue)
     }
@@ -31,13 +31,15 @@ function App() {
         setValue(valueStart)
         setEndValue(valueMax)
     }
-    const ErrorCallBack = (errorFromSetting: boolean) => {
+
+    const handleError = (errorFromSetting: boolean) => { // handleError
         setError(errorFromSetting)
     }
+
     return (
         <div className="App">
             <Setting
-                callBackError={ErrorCallBack}
+                callBackError={handleError}
                 setButton={setButton}
             />
             <Counter

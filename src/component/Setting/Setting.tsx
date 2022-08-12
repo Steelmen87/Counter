@@ -9,43 +9,48 @@ type PropsSettingType = {
     setButton: (valueStart: number, valueMax: number) => void
     callBackError: (error: boolean) => void
 }
-const Setting = (props: PropsSettingType) => {
+
+const Setting = ({setButton, callBackError}: PropsSettingType) => {
+    const [valueMax, setValueMax] = useState(0)
+    const [valueStart, setValueStart] = useState(0)
+
+    const error = valueStart < 0 || valueMax <= valueStart
 
     useEffect(() => {
         let value = restoreState('counter value', [0,0])
         setValueStart(value[0])
         setValueMax(value[1])
-
     }, [])
-    let {setButton, callBackError} = props
-    let [valueMax, setValueMax] = useState(0)
-    let [valueStart, setValueStart] = useState(0)
+
+    useEffect(() => {
+        callBackError(error)
+    }, [error])
 
     const setTheCounterValue = () => {
         setButton(valueStart, valueMax)
     }
+
     const setMaxValue = (value: number) => {
         setValueMax(value)
-
     }
+
     const setStartValue = (value: number) => {
         setValueStart(value)
-
     }
-    let error = valueStart < 0 || valueMax <= valueStart
-    useEffect(() => {
-        callBackError(error)
-    }, [error])
+
     return (
         <div className={style.counter}>
             <div>
                 <Input styleError={error}
-                       value={valueMax} title={'max value :'}
-                       onChange={setMaxValue}/>
+                       value={valueMax}
+                       title={'max value :'}
+                       onChange={setMaxValue}
+                />
                 <Input styleError={error}
                        value={valueStart}
                        title={'start value :'}
-                       onChange={setStartValue}/>
+                       onChange={setStartValue}
+                />
             </div>
             <div className={style.block_button}>
                 <Button
