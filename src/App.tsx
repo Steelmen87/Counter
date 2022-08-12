@@ -5,6 +5,7 @@ import Setting from "./component/Setting/Setting";
 import {restoreState, saveState} from "./toolkit/localStorage";
 
 function App() {
+    //
     let [minValue, setMinValue] = useState(0)
     let [value, setValue] = useState(minValue)
     let [endValue, setEndValue] = useState(0)
