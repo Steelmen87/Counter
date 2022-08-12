@@ -2,15 +2,20 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import Counter from "./component/Counter";
 import Setting from "./component/Setting/Setting";
-import set = Reflect.set;
+import {restoreState, saveState} from "./toolkit/localStorage";
 
 function App() {
-    let maxValue = 0
     let [minValue, setMinValue] = useState(0)
     let [value, setValue] = useState(minValue)
-    let [endValue, setEndValue] = useState(maxValue)
+    let [endValue, setEndValue] = useState(0)
     let [error, setError] = useState(false)
+    useEffect(() => {
+        let value = restoreState('counter value', [0,0])
+        setMinValue(value[0])
+        setValue(value[0])
+        setEndValue(value[1])
 
+    }, [])
 
     const AddCount = () => {
         setValue(value + 1)
@@ -20,7 +25,7 @@ function App() {
     }
 
     const setButton = (valueStart: number, valueMax: number) => {
-
+        saveState('counter value', [valueStart, valueMax])
         setMinValue(valueStart)
         setValue(valueStart)
         setEndValue(valueMax)
