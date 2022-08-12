@@ -1,7 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from "../Counter.module.css";
 import {Button} from "../Button/Button";
 import {Input} from "../Input/Input";
+import {restoreState} from "../../toolkit/localStorage";
 
 
 type PropsSettingType = {
@@ -10,18 +11,24 @@ type PropsSettingType = {
 }
 const Setting = (props: PropsSettingType) => {
 
+    useEffect(() => {
+        let value = restoreState('counter value', [])
+        setValueStart(value[0])
+        setValueMax(value[1])
+
+    }, [])
     let {setButton, callBackError} = props
     let [valueMax, setValueMax] = useState(0)
     let [valueStart, setValueStart] = useState(0)
 
-    const onClickSetButton = () => {
+    const setTheCounterValue = () => {
         setButton(valueStart, valueMax)
     }
-    const setValueMaxCallBack = (value: number) => {
+    const setMaxValue = (value: number) => {
         setValueMax(value)
 
     }
-    const setValueStartCallBack = (value: number) => {
+    const setStartValue = (value: number) => {
         setValueStart(value)
 
     }
@@ -34,16 +41,16 @@ const Setting = (props: PropsSettingType) => {
             <div>
                 <Input styleError={error}
                        value={valueMax} title={'max value :'}
-                       onChange={setValueMaxCallBack}/>
+                       onChange={setMaxValue}/>
                 <Input styleError={error}
                        value={valueStart}
                        title={'start value :'}
-                       onChange={setValueStartCallBack}/>
+                       onChange={setStartValue}/>
             </div>
             <div className={style.block_button}>
                 <Button
                     title={'set'}
-                    onClick={onClickSetButton}
+                    onClick={setTheCounterValue}
                     disabled={error}/>
             </div>
         </div>

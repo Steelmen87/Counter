@@ -8,7 +8,6 @@ type ButtonPropsTitle = {
 }
 export const Button = (props: ButtonPropsTitle) => {
     const {title, onClick, disabled} = props
-
     const onClickHandler = () => {
         onClick()
     }
