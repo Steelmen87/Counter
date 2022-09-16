@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {restoreState, saveState} from "../toolkit/localStorage";
+
 const initState = {
     minValue: 0,
     value: 0,
@@ -50,3 +53,22 @@ export const setInitialValueAC = (minValue: number, value: number, endValue: num
     return {type: SET_INITIAL_VALUE, payload: {minValue, value, endValue}} as const
 }
 export type setInitialValueACType = ReturnType<typeof setInitialValueAC>
+
+export const SaveThunkCreator = (valueStart: number, valueMax: number) => (dispatch: Dispatch) => {
+    saveState('counter value', [valueStart, valueMax])
+        .then(() => {
+            // @ts-ignore
+            dispatch(SetThunkCreator())
+            /*restoreState('counter value', [0, 0])
+                .then(value => {
+                    dispatch(setInitialValueAC(value[0], value[0], value[1]))
+                })*/
+        })
+}
+export const SetThunkCreator = () => (dispatch: Dispatch) => {
+    restoreState('counter value', [0, 0])
+        .then(value => {
+            dispatch(setInitialValueAC(value[0], value[0], value[1]))
+        })
+}
+

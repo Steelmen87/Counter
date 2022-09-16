@@ -19,10 +19,11 @@ const Setting = ({setButton, error}: PropsSettingType) => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        restoreState('counter value', [0, 0]).then(value => {
-            setValueStart(value[0])
-            setValueMax(value[1])
-        })
+        restoreState('counter value', [0, 0])
+            .then(value => {
+                setValueStart(value[0])
+                setValueMax(value[1])
+            })
 
     }, [])
 

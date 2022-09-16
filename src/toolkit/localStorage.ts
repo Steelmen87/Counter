@@ -1,6 +1,5 @@
 export async function saveState<T>(key: string, state: T) {
-    const stateAsString = await JSON.stringify(state)
-    localStorage.setItem(key, stateAsString)
+    await localStorage.setItem(key, JSON.stringify(state))
 }
 
 export async function restoreState<T>(key: string, defaultState: T) {

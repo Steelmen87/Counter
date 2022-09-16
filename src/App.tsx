@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Counter from "./component/Counter";
 import Setting from "./component/Setting/Setting";
 import {restoreState, saveState} from "./toolkit/localStorage";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "./redux/store";
-import {setInitialValueAC, setValueAC} from "./redux/countReducer";
+import {SaveThunkCreator, setInitialValueAC, SetThunkCreator, setValueAC} from "./redux/countReducer";
 
 function App() {
     const error = useSelector<AppStoreType, boolean>(state => state.count.error)
@@ -16,10 +16,12 @@ function App() {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        restoreState('counter value', [0, 0])
+        // @ts-ignore
+        dispatch(SetThunkCreator())
+        /*restoreState('counter value', [0, 0])
             .then((value => {
                 dispatch(setInitialValueAC(value[0], value[0], value[1]))
-            }))
+            }))*/
     }, [])
     const AddCount = () => { //increment
         dispatch(setValueAC(value + 1))
@@ -28,15 +30,18 @@ function App() {
         dispatch(setValueAC(minValue))
     }
     const setButton = (valueStart: number, valueMax: number) => {
-        saveState('counter value', [valueStart, valueMax])
-            .then(() => {
-                restoreState('counter value', [0, 0])
-                    .then(value => {
-                        dispatch(setInitialValueAC(value[0], value[0], value[1]))
-                    })
-            })
-
-
+        // @ts-ignore
+        dispatch(SaveThunkCreator(valueStart, valueMax))
+        /*
+         saveState('counter value', [valueStart, valueMax])
+             .then(() => {
+                 // @ts-ignore
+                 dispatch(SetThunkCreator())
+                 /!*restoreState('counter value', [0, 0])
+                     .then(value => {
+                         dispatch(setInitialValueAC(value[0], value[0], value[1]))
+                     })*!/
+             })*/
     }
 
     return (
