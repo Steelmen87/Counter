@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/933aa4a1/@reduxjs/toolkit",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -15,11 +16,10 @@
     "@types/redux": "^3.6.0",
     "gh-pages": "^4.0.0",
     "react": "^18.2.0",
-    "redux": "^4.2.0",
-    "react-redux": "^8.0.2",
-    "redux-thunk": "^2.4.1",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
   },

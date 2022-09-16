@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
 import {restoreState, saveState} from "../toolkit/localStorage";
+import {AppThunk} from "./store";
 
 const initState = {
     minValue: 0,
@@ -13,7 +13,7 @@ const SET_ERROR = "SET_ERROR"
 const SET_VALUE = "SET_VALUE"
 const SET_INITIAL_VALUE = "SET_INITIAL_VALUE"
 
-type actionType = loadingACType | setInitialValueACType | setValueACType
+export type actionType = setErrorACType | setInitialValueACType | setValueACType
 
 export const countReducer = (state: initStateType = initState, action: actionType): initStateType => {
     switch (action.type) {
@@ -43,7 +43,7 @@ export const countReducer = (state: initStateType = initState, action: actionTyp
 export const setErrorAC = (error: boolean) => {
     return {type: SET_ERROR, payload: {error}} as const
 }
-export type loadingACType = ReturnType<typeof setErrorAC>
+export type setErrorACType = ReturnType<typeof setErrorAC>
 
 export const setValueAC = (value: number) => {
     return {type: SET_VALUE, payload: {value}} as const
@@ -55,16 +55,11 @@ export const setInitialValueAC = (minValue: number, value: number, endValue: num
 }
 export type setInitialValueACType = ReturnType<typeof setInitialValueAC>
 
-export const SaveThunkCreator = (valueStart: number, valueMax: number) => (dispatch: Dispatch<any>) => {
+export const SaveThunkCreator = (valueStart: number, valueMax: number): AppThunk => (dispatch) => {
     saveState('counter value', [valueStart, valueMax])
-        .then(() => {
-            dispatch(SetThunkCreator())
-        })
+    dispatch(SetThunkCreator())
 }
-export const SetThunkCreator = () => (dispatch: Dispatch) => {
-    restoreState('counter value', [0, 0])
-        .then(value => {
-            dispatch(setInitialValueAC(value[0], value[0], value[1]))
-        })
+export const SetThunkCreator = (): AppThunk => (dispatch) => {
+    const value = restoreState('counter value', [0, 0])
+    dispatch(setInitialValueAC(value[0], value[0], value[1]))
 }
-
