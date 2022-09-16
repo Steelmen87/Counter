@@ -8,6 +8,7 @@ const initState = {
     error: false
 }
 export type initStateType = typeof initState
+
 const SET_ERROR = "SET_ERROR"
 const SET_VALUE = "SET_VALUE"
 const SET_INITIAL_VALUE = "SET_INITIAL_VALUE"
@@ -54,15 +55,10 @@ export const setInitialValueAC = (minValue: number, value: number, endValue: num
 }
 export type setInitialValueACType = ReturnType<typeof setInitialValueAC>
 
-export const SaveThunkCreator = (valueStart: number, valueMax: number) => (dispatch: Dispatch) => {
+export const SaveThunkCreator = (valueStart: number, valueMax: number) => (dispatch: Dispatch<any>) => {
     saveState('counter value', [valueStart, valueMax])
         .then(() => {
-            // @ts-ignore
             dispatch(SetThunkCreator())
-            /*restoreState('counter value', [0, 0])
-                .then(value => {
-                    dispatch(setInitialValueAC(value[0], value[0], value[1]))
-                })*/
         })
 }
 export const SetThunkCreator = () => (dispatch: Dispatch) => {

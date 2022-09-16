@@ -16,8 +16,8 @@ const Setting = ({setButton, error}: PropsSettingType) => {
     const [valueMax, setValueMax] = useState(0)
     const [valueStart, setValueStart] = useState(0)
 
-
     const dispatch = useDispatch()
+
     useEffect(() => {
         restoreState('counter value', [0, 0])
             .then(value => {
@@ -33,15 +33,6 @@ const Setting = ({setButton, error}: PropsSettingType) => {
 
     const setTheCounterValue = () => {
         setButton(valueStart, valueMax)
-
-    }
-
-    const setMaxValue = (value: number) => {
-        setValueMax(value)
-    }
-
-    const setStartValue = (value: number) => {
-        setValueStart(value)
     }
 
     return (
@@ -50,12 +41,12 @@ const Setting = ({setButton, error}: PropsSettingType) => {
                 <Input styleError={error}
                        value={valueMax}
                        title={'max value :'}
-                       onChange={setMaxValue}
+                       onChange={setValueMax}
                 />
                 <Input styleError={error}
                        value={valueStart}
                        title={'start value :'}
-                       onChange={setStartValue}
+                       onChange={setValueStart}
                 />
             </div>
             <div className={style.block_button}>
