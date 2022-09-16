@@ -3,45 +3,47 @@ import './App.css';
 import Counter from "./component/Counter";
 import Setting from "./component/Setting/Setting";
 import {restoreState, saveState} from "./toolkit/localStorage";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStoreType} from "./redux/store";
+import {setInitialValueAC, setValueAC} from "./redux/countReducer";
 
 function App() {
-    const [minValue, setMinValue] = useState(0)
-    const [value, setValue] = useState(minValue)
-    const [endValue, setEndValue] = useState(0)
-    const [error, setError] = useState(false)
+    const error = useSelector<AppStoreType, boolean>(state => state.count.error)
 
+    const minValue = useSelector<AppStoreType, number>(state => state.count.minValue)
+    const value = useSelector<AppStoreType, number>(state => state.count.value)
+    const endValue = useSelector<AppStoreType, number>(state => state.count.endValue)
+
+    const dispatch = useDispatch()
     useEffect(() => {
-        const value = restoreState('counter value', [0, 0])
-        setMinValue(value[0])
-        setValue(value[0])
-        setEndValue(value[1])
+        restoreState('counter value', [0, 0])
+            .then((value => {
+                dispatch(setInitialValueAC(value[0], value[0], value[1]))
+            }))
     }, [])
-
     const AddCount = () => { //increment
-        setValue(value + 1)
+        dispatch(setValueAC(value + 1))
     }
-
     const onReset = () => {
-        setValue(minValue)
+        dispatch(setValueAC(minValue))
     }
-
     const setButton = (valueStart: number, valueMax: number) => {
         saveState('counter value', [valueStart, valueMax])
-        setMinValue(valueStart)
-        setValue(valueStart)
-        setEndValue(valueMax)
-    }
+            .then(() => {
+                restoreState('counter value', [0, 0])
+                    .then(value => {
+                        dispatch(setInitialValueAC(value[0], value[0], value[1]))
+                    })
+            })
 
-    const handleError = (errorFromSetting: boolean) => { // handleError
-        setError(errorFromSetting)
+
     }
 
     return (
         <div className="App">
             <Setting
-                callBackError={handleError}
-                setButton={setButton}
-            />
+                error={error}
+                setButton={setButton}/>
             <Counter
                 error={error}
                 AddCount={AddCount}
@@ -54,3 +56,4 @@ function App() {
 }
 
 export default App;
+

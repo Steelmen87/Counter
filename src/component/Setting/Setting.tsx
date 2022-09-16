@@ -3,31 +3,36 @@ import style from "../Counter.module.css";
 import {Button} from "../Button/Button";
 import {Input} from "../Input/Input";
 import {restoreState} from "../../toolkit/localStorage";
+import {useDispatch} from "react-redux";
+import {setErrorAC} from '../../redux/countReducer';
 
 
 type PropsSettingType = {
     setButton: (valueStart: number, valueMax: number) => void
-    callBackError: (error: boolean) => void
+    error: boolean
 }
 
-const Setting = ({setButton, callBackError}: PropsSettingType) => {
+const Setting = ({setButton, error}: PropsSettingType) => {
     const [valueMax, setValueMax] = useState(0)
     const [valueStart, setValueStart] = useState(0)
 
-    const error = valueStart < 0 || valueMax <= valueStart
 
+    const dispatch = useDispatch()
     useEffect(() => {
-        let value = restoreState('counter value', [0,0])
-        setValueStart(value[0])
-        setValueMax(value[1])
+        restoreState('counter value', [0, 0]).then(value => {
+            setValueStart(value[0])
+            setValueMax(value[1])
+        })
+
     }, [])
 
     useEffect(() => {
-        callBackError(error)
-    }, [error])
+        dispatch(setErrorAC(valueStart < 0 || valueMax <= valueStart))
+    }, [valueStart, valueMax])
 
     const setTheCounterValue = () => {
         setButton(valueStart, valueMax)
+
     }
 
     const setMaxValue = (value: number) => {
